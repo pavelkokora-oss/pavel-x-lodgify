@@ -297,7 +297,7 @@
   .half-num-pts { list-style:none; margin:8px 0 0 !important; padding:8px 0 0 !important; border-top:1px solid rgba(20,19,19,.14); }
   .half-num-pts li { margin:0; font-weight:700; font-size:15px; line-height:1.35; color:#141313; }
   .halves .half:nth-child(1) .half-num.multi:first-of-type b::after { content:"today"; margin-left:8px; font-family:var(--font-body); font-size:14px; font-weight:600; color:#53575a; text-transform:none; }
-  @media (max-width:760px) { .half-num.multi { background:#f0f7fa !important; } .half-num.multi b { font-size:24px; } }
+  @media (max-width:760px) { .half-num.multi b { font-size:24px; } }
   .doodle { font-family:var(--font-head); font-weight:800; font-size:44px; color:#141313; background:#fff65b; padding:6px 22px 10px; border-radius:999px; transform:rotate(-4deg); top:-40px; }
   @media (max-width:760px) { .doodle { font-size:30px; padding:4px 16px 7px; } }
   .occupation { background:#f8fafb; }
@@ -324,6 +324,14 @@
     .halves .half:nth-child(3) { transform:translate(calc(-60px * var(--q)), calc(44px * var(--q))) rotate(calc(1.5deg * var(--q))); }
     .halves .half:nth-child(4) { transform:translate(calc(60px * var(--q)), calc(44px * var(--q))) rotate(calc(-1.5deg * var(--q))); }
     .halves .half { will-change:transform; }
+  }
+  /* mobile: same piece colours as the desktop puzzle */
+  @media (max-width:760px) {
+    .halves .half { border:0; }
+    .halves .half:nth-child(1) { background:#ffffff; }
+    .halves .half:nth-child(2) { background:#ddebf3; }
+    .halves .half:nth-child(3) { background:#feffc9; }
+    .halves .half:nth-child(4) { background:#ffffff; }
   }
 
 </style>
