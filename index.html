@@ -316,10 +316,39 @@
   .halves .half:nth-child(4) .half-num-pts li { display:inline-block; font-size:13px; font-weight:700; color:#141313; background:#ffffff; border:1px solid #ddebf3; border-radius:999px; padding:4px 11px; }
   .video-card video { aspect-ratio:1/1; object-fit:cover; width:100%; }
   .video-badge { background:#fff65b; color:#141313; font-family:var(--font-head); font-weight:800; font-size:17px; padding:8px 16px 9px; border-radius:999px; transform:rotate(-4deg); box-shadow:none; }
+  /* puzzle: pieces apart at first, slide together on scroll (driven by --p from puzzle_scroll.html) */
+  @media (min-width:761px) {
+    .halves .half-grid { --q: calc(1 - var(--p, 1)); }
+    .halves .half:nth-child(1) { transform:translate(calc(-60px * var(--q)), calc(-44px * var(--q))) rotate(calc(-2deg * var(--q))); }
+    .halves .half:nth-child(2) { transform:translate(calc(60px * var(--q)), calc(-44px * var(--q))) rotate(calc(2deg * var(--q))); }
+    .halves .half:nth-child(3) { transform:translate(calc(-60px * var(--q)), calc(44px * var(--q))) rotate(calc(1.5deg * var(--q))); }
+    .halves .half:nth-child(4) { transform:translate(calc(60px * var(--q)), calc(44px * var(--q))) rotate(calc(-1.5deg * var(--q))); }
+    .halves .half { will-change:transform; }
+  }
 
 </style>
 </head>
 <body>
+<script>
+/* Puzzle pieces start apart and slide together while the block scrolls into view (desktop only). */
+(function () {
+  var grid = document.querySelector('.halves .half-grid');
+  if (!grid) return;
+  var mq = window.matchMedia('(min-width:761px)'), rm = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var ticking = false;
+  function update() {
+    ticking = false;
+    if (!mq.matches || rm.matches) { grid.style.setProperty('--p', 1); return; }
+    var vh = window.innerHeight, top = grid.getBoundingClientRect().top;
+    var p = (vh - top) / (vh * 0.75);
+    grid.style.setProperty('--p', Math.max(0, Math.min(1, p)).toFixed(3));
+  }
+  function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  update();
+})();
+</script>
 
 <section class="hero">
   <div class="wrap">
