@@ -331,7 +331,7 @@
 <body>
 <script>
 /* Puzzle pieces start apart and slide together while the block scrolls into view (desktop only). */
-(function () {
+document.addEventListener('DOMContentLoaded', function () {
   var grid = document.querySelector('.halves .half-grid');
   if (!grid) return;
   var mq = window.matchMedia('(min-width:761px)'), rm = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -347,7 +347,7 @@
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', onScroll);
   update();
-})();
+});
 </script>
 
 <section class="hero">
